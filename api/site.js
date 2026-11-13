@@ -1,21 +1,29 @@
-import { get, set, persistent, isAdmin, needJson, hasPassword } from './_lib.js';
-export default async function handler(req, res) {
-  res.setHeader('Cache-Control', 'no-store');
+// Vercel Serverless Backend API (/api/site)
+import { INITIAL_SITE_DATA } from '../src/defaultSiteData.js';
+
+let memoryStore = {
+  siteData: INITIAL_SITE_DATA,
+  inquiries: [],
+  updatedAt: new Date().toISOString(),
+};
+
+export default function handler(req, res) {
   if (req.method === 'GET') {
-    const raw = await get('content');
-    return res.status(200).json({ live: (await get('live')) === '1', content: raw ? JSON.parse(raw) : null, admin: isAdmin(req), persistent, passwordSet: hasPassword() });
+    return res.status(200).json(memoryStore);
   }
-  if (req.method === 'PUT') {
-    if (!isAdmin(req)) return res.status(401).json({ error: 'Login required' });
-    if (!needJson(req, res)) return;
-    const { content, live } = req.body || {};
-    if (typeof live === 'boolean') await set('live', live ? '1' : '0');
-    if (content) {
-      const s = JSON.stringify(content);
-      if (s.length > 900000) return res.status(413).json({ error: 'Content too large' });
-      await set('content', s);
+  if (req.method === 'POST') {
+    const body = req.body || {};
+    if (body.siteData) {
+      memoryStore.siteData = body.siteData;
     }
-    return res.status(200).json({ ok: true, persistent });
+    if (body.inquiries) {
+      memoryStore.inquiries = body.inquiries;
+    }
+    if (body.newInquiry) {
+      memoryStore.inquiries = [body.newInquiry, ...(memoryStore.inquiries || [])];
+    }
+    memoryStore.updatedAt = new Date().toISOString();
+    return res.status(200).json({ success: true, data: memoryStore });
   }
   return res.status(405).json({ error: 'Method not allowed' });
 }
