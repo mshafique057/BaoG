@@ -1,0 +1,389 @@
+:root {
+  --bg: #2d1004;
+  --bg-deep: #1e0902;
+  --bg-soft: #431907;
+  --bg-card: #331205;
+  --cream: #f8e7d0;
+  --cream-text: #fdf2e4;
+  --muted: #d8ba98;
+  --accent: #d49a64;
+  --brush-start: #dfb88c;
+  --brush-mid: #f8e7d0;
+  --brush-end: #d5a676;
+  --line: rgba(248, 231, 208, 0.26);
+  --line-strong: rgba(248, 231, 208, 0.55);
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Cormorant Garamond', Georgia, serif;
+  --ui: 'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { margin: 0; min-height: 100%; }
+
+body {
+  background:
+    radial-gradient(60% 50% at 95% 5%, rgba(156, 83, 35, 0.28) 0%, transparent 70%),
+    radial-gradient(55% 45% at 5% 95%, rgba(140, 72, 28, 0.25) 0%, transparent 70%),
+    radial-gradient(120% 90% at 50% 0%, var(--bg-soft) 0%, var(--bg) 48%, var(--bg-deep) 100%) fixed;
+  color: var(--cream-text);
+  font-family: var(--ui);
+  -webkit-font-smoothing: antialiased;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  border-bottom: 1px solid var(--line);
+  background: rgba(30, 9, 2, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand-mark {
+  height: 54px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+}
+
+.brand-name {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 0.05em;
+  color: var(--cream);
+  line-height: 1;
+}
+
+.brand-sub {
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.main-nav { display: flex; flex-wrap: wrap; gap: 4px 24px; }
+
+.main-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--cream-text);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.main-nav a:hover { color: var(--accent); }
+
+.main-nav a.is-active {
+  color: var(--cream);
+  border-bottom-color: var(--accent);
+}
+
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1.5px solid var(--cream-text);
+  border-radius: 8px;
+  color: var(--cream-text);
+  cursor: pointer;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: 56px;
+  padding-top: 52px;
+  padding-bottom: 64px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 7px 16px;
+  border: 1.5px solid var(--cream);
+  border-radius: 999px;
+  color: var(--cream);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 22px 0 18px;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1.06;
+  max-width: 14ch;
+  color: var(--cream);
+}
+
+.hero p {
+  margin: 0;
+  max-width: 34rem;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* ---------- Coming soon card (matches official BAO:G banner) ---------- */
+.sign {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  justify-self: center;
+  padding: 42px 32px 46px;
+  text-align: center;
+  color: var(--cream);
+  background:
+    radial-gradient(65% 45% at 100% 0%, rgba(168, 92, 40, 0.24) 0%, transparent 65%),
+    radial-gradient(65% 45% at 0% 100%, rgba(155, 80, 32, 0.22) 0%, transparent 65%),
+    linear-gradient(165deg, #3c1607 0%, #2d1004 52%, #220a02 100%);
+  border: 1px solid var(--line-strong);
+  box-shadow:
+    0 24px 52px rgba(0, 0, 0, 0.5),
+    inset 0 0 40px rgba(0, 0, 0, 0.28);
+}
+
+/* Stepped corner accents matching the Coming Soon poster frame */
+.sign-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
+
+.sign-corner-tl {
+  top: -1px;
+  left: -1px;
+  border-bottom: 1px solid var(--line-strong);
+  border-right: 1px solid var(--line-strong);
+  background: var(--bg);
+}
+
+.sign-corner-br {
+  bottom: -1px;
+  right: -1px;
+  border-top: 1px solid var(--line-strong);
+  border-left: 1px solid var(--line-strong);
+  background: var(--bg);
+}
+
+.sign-logo {
+  display: block;
+  width: 60%;
+  height: auto;
+  margin: 0 auto 20px;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35));
+}
+
+.sign-urdu-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 84%;
+  margin: 0 auto 8px;
+}
+
+.sign-urdu-row::before,
+.sign-urdu-row::after {
+  content: '';
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--cream), transparent);
+  opacity: 0.75;
+}
+
+.sign-urdu {
+  display: block;
+  width: 52%;
+  height: auto;
+}
+
+.sign-word {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(2.9rem, 9vw, 3.9rem);
+  line-height: 1;
+  letter-spacing: 0.03em;
+  color: var(--cream);
+}
+
+.sign-sub {
+  margin-top: 10px;
+  font-family: var(--ui);
+  font-size: 13.5px;
+  font-weight: 400;
+  letter-spacing: 0.36em;
+  color: var(--cream);
+  opacity: 0.92;
+}
+
+.sign-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 22px auto 26px;
+  width: 76%;
+  color: var(--accent);
+}
+
+.sign-rule::before {
+  content: '';
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent 0%, var(--cream) 100%);
+  opacity: 0.7;
+}
+
+.sign-rule::after {
+  content: '';
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--cream) 0%, transparent 100%);
+  opacity: 0.7;
+}
+
+.sign-flo-svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+.sign-brush {
+  display: inline-block;
+  padding: 13px 42px;
+  background: linear-gradient(90deg, var(--brush-start) 0%, var(--brush-mid) 50%, var(--brush-end) 100%);
+  color: #210902;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  clip-path: polygon(
+    4% 8%, 96% 2%, 100% 24%, 97% 48%, 100% 72%, 95% 96%,
+    4% 94%, 0% 70%, 3% 46%, 0% 22%
+  );
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.32);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  border-top: 1px solid var(--line);
+  background: var(--bg-deep);
+  padding: 24px 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-mascot {
+  height: 36px;
+  width: auto;
+  display: block;
+}
+
+.footer-urdu { height: 28px; width: auto; display: block; }
+
+/* ---------- Tablet ---------- */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+  .sign { justify-self: center; }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 760px) {
+  .container { padding-left: 20px; padding-right: 20px; }
+
+  .menu-toggle { display: inline-flex; }
+
+  .main-nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--line);
+    margin-top: 8px;
+  }
+
+  .main-nav.is-open { display: flex; }
+
+  .main-nav a {
+    width: 100%;
+    min-height: 48px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .main-nav a.is-active { border-bottom-color: var(--accent); }
+
+  .brand-name { font-size: 22px; }
+}
+
+@media (max-width: 420px) {
+  .sign { padding: 36px 20px 40px; }
+  .sign-brush { padding: 12px 28px; font-size: 1.02rem; }
+}
